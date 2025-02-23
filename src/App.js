@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { Home } from "./components/Home.tsx";
+import { Loginscreen } from "./components/Loginscreen.tsx";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes
+} from "react-router-dom";
+import userContext from "./contexts/UserContext.tsx";
+import React, {useState} from 'react';
+
+
+
 
 function App() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <userContext.Provider value={{ username, setUsername, password, setPassword }}>
+    <Router>
+      <Routes>
+          <Route path="/login" element={<Loginscreen />} />
+          <Route path="/home" element={<Home></Home>} />
+      </Routes>
+    </Router>
+  </userContext.Provider> 
   );
 }
 
